@@ -55,6 +55,7 @@ private:
 
     if (!file.good())
       printf("File did not write!\n");
+
   }
 };
 #endif // !SDISK_H
