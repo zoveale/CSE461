@@ -14,7 +14,7 @@ public:
     if (!checkFile.is_open()) {
       std::ofstream file(diskname.c_str(), std::fstream::binary);
       std::string buffer(numberofblocks * blocksize, '#');
-      file.write(buffer.c_str(), numberofblocks * blocksize);
+      file.write(buffer.c_str(), (__int64)numberofblocks * (__int64)blocksize);
 
       if (!file.good())
         printf("File did not write!\n");
@@ -23,7 +23,7 @@ public:
   }
   int GetBlock(int blocknumber, std::string& buffer) {
     std::ifstream file(diskname.c_str(), std::fstream::binary || std::fstream::app);
-    file.seekg(blocknumber * blocksize);
+    file.seekg((__int64)blocknumber * (__int64)blocksize);
 
     char* block = new char[blocksize + 1];
     block[blocksize] = '\0';
@@ -38,7 +38,7 @@ public:
   }
   int PutBlock(int blocknumber, std::string buffer) {
     std::ofstream file(diskname.c_str(), std::fstream::binary || std::fstream::out);
-    file.seekp(blocknumber * blocksize);
+    file.seekp((__int64)blocknumber * (__int64)blocksize);
     file.write(buffer.c_str(), blocksize);
 
     if (!file.good())
