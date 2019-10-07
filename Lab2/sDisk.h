@@ -9,17 +9,9 @@ class Sdisk {
 public:
   Sdisk(std::string diskname, int numberofblocks, int blocksize) :
     diskname(diskname), numberofblocks(numberofblocks), blocksize(blocksize) {
-    std::ifstream checkFile(diskname.c_str());
-
-    if (!checkFile.is_open()) {
-      std::ofstream file(diskname.c_str(), std::fstream::binary);
-      std::string buffer(numberofblocks * blocksize, '#');
-      file.write(buffer.c_str(), (__int64)numberofblocks * (__int64)blocksize);
-
-      if (!file.good())
-        printf("File did not write!\n");
+    if (!LoadDisk()) {
+      CreateDisk();
     }
-
   }
   int GetBlock(int blocknumber, std::string& buffer) {
     std::ifstream file(diskname.c_str(), std::fstream::binary || std::fstream::app);
@@ -49,8 +41,20 @@ public:
   int GetNumberOfBlocks() { return numberofblocks; }
   int GetBlockSize() { return blocksize; }
 private:
+  std::ifstream inFile;
   std::string diskname;        // file name of software-disk
   int numberofblocks;     // number of blocks on disk
   int blocksize;          // block size in bytes
+  bool LoadDisk() {
+   return inFile.is_open();
+  }
+  void CreateDisk() {
+    std::ofstream file(diskname.c_str(), std::fstream::binary);
+    std::string buffer(numberofblocks * blocksize, '#');
+    file.write(buffer.c_str(), (__int64)numberofblocks * (__int64)blocksize);
+
+    if (!file.good())
+      printf("File did not write!\n");
+  }
 };
 #endif // !SDISK_H
