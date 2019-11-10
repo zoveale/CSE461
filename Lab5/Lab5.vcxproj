@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{3E08B06D-E9D4-4EC1-9450-D7B6BAE38CE8}</ProjectGuid>
-    <RootNamespace>Lab3</RootNamespace>
+    <ProjectGuid>{FC3BBFC7-A997-456E-980A-A16351DDCFF4}</ProjectGuid>
+    <RootNamespace>Lab5</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,12 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="fileSystem.h" />
-    <ClInclude Include="sDisk.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="fileSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="shell.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fileSystem.h" />
+    <ClInclude Include="sDisk.h" />
+    <ClInclude Include="shell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

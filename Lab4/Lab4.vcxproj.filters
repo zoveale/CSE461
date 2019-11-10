@@ -14,23 +14,26 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Header Files\FILE_SYSTEM">
-      <UniqueIdentifier>{0c5b955c-6ea8-4f66-b467-1a670b840f85}</UniqueIdentifier>
+      <UniqueIdentifier>{96f3cfb1-93e6-4273-a99a-5322d11d67be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\S_DISK">
+      <UniqueIdentifier>{123d633e-b786-42f0-8d74-6e246bc67ccc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sDisk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fileSystem.h">
-      <Filter>Header Files\FILE_SYSTEM</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="fileSystem.cpp">
-      <Filter>Header Files\FILE_SYSTEM</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fileSystem.cpp">
+      <Filter>Header Files\FILE_SYSTEM</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fileSystem.h">
+      <Filter>Header Files\FILE_SYSTEM</Filter>
+    </ClInclude>
+    <ClInclude Include="sDisk.h">
+      <Filter>Header Files\S_DISK</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

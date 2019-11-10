@@ -13,24 +13,36 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\FILE_SYSTEM">
-      <UniqueIdentifier>{0c5b955c-6ea8-4f66-b467-1a670b840f85}</UniqueIdentifier>
+    <Filter Include="FILE_SYSTEM">
+      <UniqueIdentifier>{aead4525-fd04-4cae-bd7c-4eba0a6a6516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="S_DISK">
+      <UniqueIdentifier>{be7c4bd5-28c7-40f5-a737-b7abd8636d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SHELL">
+      <UniqueIdentifier>{3759f697-f5f8-4c80-b73b-91622bcbd63f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sDisk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fileSystem.h">
-      <Filter>Header Files\FILE_SYSTEM</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="fileSystem.cpp">
-      <Filter>Header Files\FILE_SYSTEM</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fileSystem.cpp">
+      <Filter>FILE_SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="shell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fileSystem.h">
+      <Filter>FILE_SYSTEM</Filter>
+    </ClInclude>
+    <ClInclude Include="sDisk.h">
+      <Filter>S_DISK</Filter>
+    </ClInclude>
+    <ClInclude Include="shell.h">
+      <Filter>SHELL</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
