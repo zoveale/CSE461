@@ -2,7 +2,7 @@
 
 class Shell : public FileSystem {
 public:
-  Shell(std::string filename, int blocksize, int numberofblocks);
+  Shell(std::string filename, int numberofblocks, int blocksize);
   int Directory();// lists all files
   int Add(std::string file);// add a new file using input from the keyboard
   int Delete(std::string file);// deletes the file

@@ -31,7 +31,7 @@
       <Filter>FILE_SYSTEM</Filter>
     </ClCompile>
     <ClCompile Include="shell.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>SHELL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,37 +1,58 @@
-#include "fileSystem.h"
+#include <iostream>
+#include "shell.h"
+
 
 int main(int argc, char* argv) {
+  //
+ //This main program inputs commands to the shell.
+ //It inputs commands as : command op1 op2
+ //You should modify it to work for your implementation.
+ //
   Sdisk diskA("diskA", 256, 128);
   FileSystem fsys("diskA", 256, 128);
-  
-  fsys.NewFile("file1");
-  fsys.NewFile("file2");
-  
-  
-  std::string bfile1;
-  for (int i = 1; i <= 1024; i++) {
-    bfile1 += "1";
+  Shell shell("diskA", 256, 128);
+
+  std::string s;
+  std::string command = "go";
+  std::string op1, op2;
+
+  while (command != "quit") {
+    command.clear();
+    op1.clear();
+    op2.clear();
+    std::cout << "$";
+    std::getline(std::cin, s);
+    int firstblank = s.find(' ');
+    if (firstblank < s.length()) s[firstblank] = '#';
+    int secondblank = s.find(' ');
+    command = s.substr(0, firstblank);
+    if (firstblank < s.length())
+      op1 = s.substr(firstblank + 1, secondblank - firstblank - 1);
+    if (secondblank < s.length())
+      op2 = s.substr(secondblank + 1);
+    if (command == "dir") {
+      // use the ls function
+      shell.Directory();
+    }
+    if (command == "add") {
+      // The variable op1 is the new file
+      shell.Add(op1);
+    }
+    if (command == "del") {
+      // The variable op1 is the file
+      shell.Delete(op1);
+    }
+    if (command == "type") {
+      // The variable op1 is the file
+      shell.Type(op1);
+    }
+    if (command == "copy") {
+      // The variable op1 is the source file and the variable op2 is the destination file.
+      shell.Copy(op1, op2);
+    }
+
   }
-  fsys.AddBlock("file1", bfile1);
-  //fsys.RemoveFile("file1");
-  //fsys.RemoveFile("file2");
-  
-  std::string bfile2;
-  std::string block;
-  
 
-
-  int blocknumber = 0;
-
-  
-
-
-  for (int i = 1; i <= 2048; i++) {
-    bfile2 += "2";
-  }
-  blocknumber = fsys.AddBlock("file2", bfile2);
-
-  //fsys.DeleteBlock("file2", blocknumber);
   return 0;
 }
 

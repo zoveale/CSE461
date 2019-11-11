@@ -35,7 +35,7 @@ FileSystem::FileSystem(
     buffer.clear();
     GetBlock(0, buffer);
     std::stringstream diskData(buffer);
-    for (unsigned int i = 0; i < rootSize; i++) {
+    for (int i = 0; i < rootSize; i++) {
       std::string name;
       int blockNumber;
       diskData >> name >> blockNumber;
@@ -50,7 +50,7 @@ FileSystem::FileSystem(
       diskData.str(diskData.str() + buffer);
     }
 
-    for (unsigned int i = 0; i < GetNumberOfBlocks(); i++) {
+    for (int i = 0; i < GetNumberOfBlocks(); i++) {
       int blockNumber;
       diskData >> blockNumber;
       fat.push_back(blockNumber);
@@ -68,7 +68,7 @@ int FileSystem::FileSystemClose() {
 int FileSystem::FileSystemSynch() {
 
   std::string syncBuffer;
-  for (int i = 0; i < filename.size(); i++) {
+  for (unsigned int i = 0; i < filename.size(); i++) {
     syncBuffer += filename[i] + " " + std::to_string(firstBlock[i]) + " ";
   }
   for (int i = syncBuffer.size(); i < GetBlockSize(); i++) {
@@ -143,8 +143,9 @@ std::pair<int, int> FileSystem::GetFirstBlock(std::string file) {
     else
       ++freeFileIndex;
   }
+  filename.size();
   //TODO >= or just >??
-  if (freeFileIndex > rootSize) return std::pair<int, int>(0, 0);
+  if (freeFileIndex >= rootSize) return std::pair<int, int>(0, 0);
 
 
   firstBlockPair.first = firstBlock[freeFileIndex];
@@ -157,7 +158,7 @@ int FileSystem::AddBlock(std::string file, std::string blockBuffer) {
   int endBlock = 0;
   int firstBlock = GetFirstBlock(file).first;
   if (firstBlock < fatSize + FAT_MEMORY_POSITION) return 0;
-  for (int i = firstBlock; i < fat.size(); i = fat[i]) {
+  for (unsigned int i = firstBlock; i < fat.size(); i = fat[i]) {
     if (fat[i] == 0) {
       endBlock = i;
       break;
@@ -174,7 +175,7 @@ int FileSystem::AddBlock(std::string file, std::string blockBuffer) {
 //TODO:: change to only remove that block number in file not all files following
 int FileSystem::DeleteBlock(std::string file, int blocknumber) {
   int startBlock = GetFirstBlock(file).first;
-  for (int i = startBlock; i < fat.size(); i = fat[i]) {
+  for (unsigned int i = startBlock; i < fat.size(); i = fat[i]) {
     if (i == blocknumber) {
       startBlock = blocknumber;
       break;
@@ -183,7 +184,7 @@ int FileSystem::DeleteBlock(std::string file, int blocknumber) {
       return 0;
     }
   }
-  for (int i = startBlock; i < fat.size(); i = fat[i]) {
+  for (unsigned int i = startBlock; i < fat.size(); i = fat[i]) {
     if (fat[i] == 0) {
       fat[i] = fat[FREE_BLOCK];
       fat[FREE_BLOCK] = fat[startBlock];
@@ -195,7 +196,7 @@ int FileSystem::DeleteBlock(std::string file, int blocknumber) {
 
 int FileSystem::ReadBlock(std::string file, int blocknumber, std::string& blockBuffer) {
   int startBlock = GetFirstBlock(file).first;
-  for (int i = startBlock; i < fat.size(); i = fat[i]) {
+  for (unsigned int i = startBlock; i < fat.size(); i = fat[i]) {
     if (i == blocknumber) {
       GetBlock(blocknumber, blockBuffer);
       return 1;
@@ -208,27 +209,26 @@ int FileSystem::ReadBlock(std::string file, int blocknumber, std::string& blockB
 
 int FileSystem::WriteBlock(std::string file, int blocknumber, std::string blockBuffer) {
   int startBlock = GetFirstBlock(file).first;
-  for (int i = startBlock; i < fat.size(); i = fat[i]) {
-    if (i == blocknumber) {
-      PutBlock(blocknumber, blockBuffer);
-      return 1;
-    }
+  if (CheckBlock(file, blocknumber)) {
+    PutBlock(blocknumber, blockBuffer);
+    return 1;
   }
   return 0;
 }
 
 int FileSystem::NextBlock(std::string file, int blocknumber) {
-  if (CheckBlock(file, blocknumber) == 1) {
+  if (CheckBlock(file, blocknumber)) {
     return fat[blocknumber];
   }
   return 0;
 }
 
+//is block num in file
 int FileSystem::CheckBlock(std::string file, int blocknumber) {
   int startBlock = GetFirstBlock(file).first;
   if (startBlock > 0) {
-    for (int i = startBlock; i < fat.size(); i = fat[i]) {
-      if (fat[i] == blocknumber)
+    for (int i = startBlock; i != 0; i = fat[i]) {
+      if (i == blocknumber)
         return 1;
     }
   }
@@ -238,7 +238,7 @@ int FileSystem::CheckBlock(std::string file, int blocknumber) {
 
 std::vector<std::string> FileSystem::List() {
   std::vector<std::string> fileList;
-  for (int i = 0; i < filename.size(); i++) {
+  for (unsigned int i = 0; i < filename.size(); i++) {
     if (filename[i] != "xxxxx") {
       fileList.push_back(filename[i]);
     }

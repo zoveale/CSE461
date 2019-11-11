@@ -8,9 +8,6 @@
 
 class Sdisk {
 public:
-  Sdisk() {
-
-  }
   Sdisk(std::string diskname, int numberofblocks, int blocksize) :
     diskname(diskname), numberofblocks(numberofblocks), blocksize(blocksize) {
     if (!LoadDisk()) {
