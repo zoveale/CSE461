@@ -13,7 +13,7 @@ int Shell::Directory() {
 }
 
 int Shell::Add(std::string file) {
-  if (NewFile(file))
+  if (NewFile(file) && FILENAME_SIZE < file.size())
     return 1;
 
   printf("file already exsits\n");
@@ -33,7 +33,6 @@ int Shell::Type(std::string file) {
   }
 
   std::string buffer;
- 
   for (int i = firstBlock; i != 0; i = NextBlock(file, i)) {
     ReadBlock(file, i, buffer);
     printf("%s", buffer.c_str());
@@ -58,19 +57,23 @@ int Shell::Copy(std::string file1, std::string file2) {
     bufferCopy += buffer;
     ++k; //number of blocks needed
   }
-  int bufferSize{ buffer.size() };
+  unsigned int bufferSize{ buffer.size() };
   int j{ 0 };
   firstBlock = GetFirstBlock(file2).first;
   if (firstBlock == 0) {
     Add(file2);
     firstBlock = GetFirstBlock(file2).first; 
   }
-  
+
   for (int i = firstBlock; j != k; i = NextBlock(file2, i)) {
-    if (i == 0)
-      AddBlock(file2, bufferCopy.substr(bufferSize * j, bufferSize * (j + 1)));
-    else
-      WriteBlock(file2, i, bufferCopy.substr(bufferSize * j, bufferSize * (j + 1)));
+    if (i == 0) {
+      buffer = bufferCopy.substr(bufferSize * j, bufferSize);
+      AddBlock(file2, buffer);
+    }
+    else {
+      buffer = bufferCopy.substr(bufferSize * j, bufferSize);
+      WriteBlock(file2, i, buffer);
+    }
     ++j;
   }
   return 0;
