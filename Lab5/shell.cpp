@@ -13,7 +13,11 @@ int Shell::Directory() {
 }
 
 int Shell::Add(std::string file) {
-  if (NewFile(file) && FILENAME_SIZE < file.size())
+  if (file.size() > FILENAME_SIZE) {
+    printf("file name to large\n");
+    return 0;
+  }
+  if (NewFile(file))
     return 1;
 
   printf("file already exsits\n");

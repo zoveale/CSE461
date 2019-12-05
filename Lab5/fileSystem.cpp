@@ -196,6 +196,7 @@ int FileSystem::DeleteBlock(std::string file, int blocknumber) {
 
 int FileSystem::ReadBlock(std::string file, int blocknumber, std::string& blockBuffer) {
   int startBlock = GetFirstBlock(file).first;
+  blockBuffer.clear();
   for (unsigned int i = startBlock; i < fat.size(); i = fat[i]) {
     if (i == blocknumber) {
       GetBlock(blocknumber, blockBuffer);
